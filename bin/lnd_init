@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -ex
+
+# This shouldn't be in the Dockerfile or containers built from the same image
+# will have the same credentials.
+if [ ! -e "$HOME/.lnd/lnd.conf" ]; then
+    mkdir -p $HOME/.lnd
+
+    echo "Creating lnd.conf"
+
+    # Seed a random password for JSON RPC server
+    cat <<EOF > $HOME/.lnd/lnd.conf
+EOF
+
+fi
+
+cat $HOME/.lnd/lnd.conf
+
+echo "Initialization completed successfully"

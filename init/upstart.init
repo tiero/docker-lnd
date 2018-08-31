@@ -1,0 +1,15 @@
+# Copy to /etc/init/docker-lnd.conf
+description "Docker container for lnd node"
+start on filesystem and started docker
+stop on runlevel [!2345]
+respawn
+pre-start script
+  # Clean-up if left behind
+  docker rm -f lnd-node || true
+
+  # Attempt to always update and fail silently if the network isn't ready
+  docker pull lnzap/lnd || true
+end script
+script
+  exec docker run --rm -v lnd-data:/lnd --name=lnd-node --rm -p 9735:9735 -p 10009:10009 lnzap/lnd
+end script
