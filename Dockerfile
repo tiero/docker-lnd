@@ -30,6 +30,8 @@ MAINTAINER Tom Kirkpatrick <tkp@kirkdesigns.co.uk>
 RUN apk --no-cache add \
 	bash \
 	su-exec \
+	dropbear-dbclient \
+	dropbear-scp \
 	ca-certificates \
 	&& update-ca-certificates
 
