@@ -7,9 +7,8 @@ RUN apk --no-cache --virtual build-dependencies add \
 	build-base \
 	git
 
-WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
-
 # Grab and install the latest version of lnd and all related dependencies.
+WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
 RUN git clone https://github.com/lightningnetwork/lnd . \
   && git reset --hard 4f43c1c9434f2f1186abfe5a8ccb6de688426e1e \
   && make \
@@ -17,10 +16,13 @@ RUN git clone https://github.com/lightningnetwork/lnd . \
   && cp /go/bin/lncli /bin/ \
   && cp /go/bin/lnd /bin/
 
-# Install zapconnect
-RUN go get -d github.com/LN-Zap/zapconnect
+# Grab and install the latest version of zapconnect.
 WORKDIR $GOPATH/src/github.com/LN-Zap/zapconnect
-RUN make
+RUN git clone https://github.com/LN-Zap/zapconnect . \
+  && git reset --hard 7c3c72adb6fbfcf343570839124013bbc4649f08 \
+  && make \
+  && make install \
+  && cp /go/bin/zapconnect /bin/
 
 # Final image
 FROM alpine:3.8 as final
