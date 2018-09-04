@@ -5,13 +5,12 @@ MAINTAINER Tom Kirkpatrick <tkp@kirkdesigns.co.uk>
 WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
 
 # Grab and install the latest version of lnd and all related dependencies.
-ENV GODEBUG netdns=cgo
-RUN git clone https://github.com/lightningnetwork/lnd $GOPATH/src/github.com/lightningnetwork/lnd
-WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
-RUN make
-RUN make install
-RUN cp /go/bin/lncli /bin/
-RUN cp /go/bin/lnd /bin/
+RUN git clone https://github.com/lightningnetwork/lnd . \
+  && git reset --hard 4f43c1c9434f2f1186abfe5a8ccb6de688426e1e \
+  && make \
+  && make install \
+  && cp /go/bin/lncli /bin/ \
+  && cp /go/bin/lnd /bin/
 
 # Install zapconnect
 RUN go get -d github.com/LN-Zap/zapconnect
@@ -72,11 +71,10 @@ ADD ./bin /usr/local/bin
 VOLUME ["/lnd"]
 
 # Expose p2p port
-EXPOSE 9735 9735
+EXPOSE 9735
 
 # Expose grpc port
-EXPOSE 10009 10009
-
+EXPOSE 10009
 
 WORKDIR /lnd
 
