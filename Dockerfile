@@ -10,19 +10,19 @@ RUN apk --no-cache --virtual build-dependencies add \
 # Grab and install the latest version of lnd and all related dependencies.
 WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
 RUN git clone https://github.com/lightningnetwork/lnd . \
-  && git reset --hard 4da1c867c3209dab4e4a824b73d89fc38b616b37 \
+  && git reset --hard b07499f227bd78dbceaa8c6ee047f1c033716cdf \
   && make \
   && make install \
   && cp /go/bin/lncli /bin/ \
   && cp /go/bin/lnd /bin/
 
-# Grab and install the latest version of zapconnect.
-WORKDIR $GOPATH/src/github.com/LN-Zap/zapconnect
-RUN git clone https://github.com/LN-Zap/zapconnect . \
-  && git reset --hard 7c3c72adb6fbfcf343570839124013bbc4649f08 \
+# Grab and install the latest version of lndconnect.
+WORKDIR $GOPATH/src/github.com/LN-Zap/lndconnect
+RUN git clone https://github.com/LN-Zap/lndconnect . \
+  && git reset --hard 7d5798e813763af4e5e39646d9acb899f0289bed \
   && make \
   && make install \
-  && cp /go/bin/zapconnect /bin/
+  && cp /go/bin/lndconnect /bin/
 
 # Final image
 FROM alpine:3.8 as final
@@ -53,7 +53,7 @@ RUN addgroup -g ${GROUP_ID} -S lnd && \
 # Copy the compiled binaries from the builder image.
 COPY --from=builder /go/bin/lncli /bin/
 COPY --from=builder /go/bin/lnd /bin/
-COPY --from=builder /go/bin/zapconnect /bin/
+COPY --from=builder /go/bin/lndconnect /bin/
 
 ADD ./bin /usr/local/bin
 
