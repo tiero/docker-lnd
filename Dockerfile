@@ -19,7 +19,7 @@ RUN git clone https://github.com/lightningnetwork/lnd . \
 # Grab and install the latest version of zapconnect.
 WORKDIR $GOPATH/src/github.com/LN-Zap/zapconnect
 RUN git clone https://github.com/LN-Zap/zapconnect . \
-  && git reset --hard 0bf2886138c0f0b6e88b46b6d9cffd29d00c78e5 \
+  && git reset --hard 7c3c72adb6fbfcf343570839124013bbc4649f08 \
   && make \
   && make install \
   && cp /go/bin/zapconnect /bin/
