@@ -10,7 +10,7 @@ RUN apk --no-cache --virtual build-dependencies add \
 # Grab and install the latest version of lnd and all related dependencies.
 WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
 RUN git clone https://github.com/lightningnetwork/lnd . \
-  && git reset --hard a8b2c093aafeea024570440efc7a96b149acea85 \
+  && git reset --hard bcc9e303968552d5638feb005c2d6d35bb996a64 \
   && make \
   && make install \
   && cp /go/bin/lncli /bin/ \
