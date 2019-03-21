@@ -9,18 +9,21 @@ RUN apk --no-cache --virtual build-dependencies add \
 
 # Grab and install the latest version of lnd and all related dependencies.
 WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
-RUN git clone https://github.com/lightningnetwork/lnd --branch master --single-branch . \
-  && git reset --hard 36cc1da8ea0eec6be4559c673bc07bd0ae9be66a \
-	&& git tag --delete queue/v1.0.0 queue/v1.0.1 \
+RUN git config --global user.email "tkp@kirkdesigns.co.uk" \
+  && git config --global user.name "Tom Kirkpatrick" \
+	&& git clone https://github.com/lightningnetwork/lnd . \
+  && git reset --hard 9fc4335ba04887a48f83d92794d3f284676e03a8 \
+	&& git fetch https://github.com/halseth/lnd.git mainnet-neutrino \
+	&& git cherry-pick d1c23009e00298ed50173fb7cd60bdfb2937d50f \
   && make \
-  && make install \
+  && make install tags="experimental signrpc walletrpc chainrpc autopilotrpc" \
   && cp /go/bin/lncli /bin/ \
   && cp /go/bin/lnd /bin/
 
 # Grab and install the latest version of lndconnect.
 WORKDIR $GOPATH/src/github.com/LN-Zap/lndconnect
 RUN git clone https://github.com/LN-Zap/lndconnect . \
-  && git reset --hard 7d5798e813763af4e5e39646d9acb899f0289bed \
+  && git reset --hard 784e69705b4232d3bc3ae3dc795b9696b7b1a929 \
   && make \
   && make install \
   && cp /go/bin/lndconnect /bin/
