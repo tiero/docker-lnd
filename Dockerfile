@@ -23,7 +23,7 @@ RUN git config --global user.email "tkp@kirkdesigns.co.uk" \
 # Grab and install the latest version of lndconnect.
 WORKDIR $GOPATH/src/github.com/LN-Zap/lndconnect
 RUN git clone https://github.com/LN-Zap/lndconnect . \
-  && git reset --hard 784e69705b4232d3bc3ae3dc795b9696b7b1a929 \
+  && git reset --hard b20ee064b02307f74782f9d84169bb4a4a8d3a10 \
   && make \
   && make install \
   && cp /go/bin/lndconnect /bin/
