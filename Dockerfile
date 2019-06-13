@@ -12,7 +12,7 @@ WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
 RUN git config --global user.email "tkp@kirkdesigns.co.uk" \
   && git config --global user.name "Tom Kirkpatrick" \
 	&& git clone https://github.com/lightningnetwork/lnd . \
-  && git reset --hard a19b6d7b698792bb4103e673ae4af7efa0e4d8ea \
+  && git reset --hard faf0dc3d81152d82c72b9824a5b3b2b60c9ec87f \
 	&& git fetch https://github.com/halseth/lnd.git mainnet-neutrino \
 	&& git cherry-pick d1c23009e00298ed50173fb7cd60bdfb2937d50f \
   && make \
