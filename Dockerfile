@@ -1,5 +1,5 @@
 # Builder image
-FROM golang:1.11-alpine3.8 as builder
+FROM golang:1.12-alpine3.9 as builder
 MAINTAINER Tom Kirkpatrick <tkp@kirkdesigns.co.uk>
 
 # Add build tools.
@@ -29,7 +29,7 @@ RUN git clone https://github.com/LN-Zap/lndconnect . \
   && cp /go/bin/lndconnect /bin/
 
 # Final image
-FROM alpine:3.8 as final
+FROM alpine:3.9 as final
 MAINTAINER Tom Kirkpatrick <tkp@kirkdesigns.co.uk>
 
 # Add utils.
