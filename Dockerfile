@@ -16,7 +16,7 @@ RUN git config --global user.email "tkp@kirkdesigns.co.uk" \
 	&& git fetch https://github.com/halseth/lnd.git mainnet-neutrino \
 	&& git cherry-pick d1c23009e00298ed50173fb7cd60bdfb2937d50f \
   && make \
-  && make install tags="experimental signrpc walletrpc chainrpc autopilotrpc" \
+  && make install tags="experimental autopilotrpc chainrpc invoicesrpc routerrpc signrpc walletrpc watchtowerrpc" \
   && cp /go/bin/lncli /bin/ \
   && cp /go/bin/lnd /bin/
 
