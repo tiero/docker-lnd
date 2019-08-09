@@ -2,7 +2,7 @@
 
 Docker image that runs lnd in a container for easy deployment.
 
-The image contains the latest [lnd](https://github.com/lightningnetwork/lnd) daemon and [zapconnect](https://github.com/LN-Zap/zapconnect).
+The image contains the latest [lnd](https://github.com/lightningnetwork/lnd) daemon and [lndconnect](https://github.com/LN-Zap/lndconnect).
 
 ## Quick Start
 
