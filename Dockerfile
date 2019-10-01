@@ -1,5 +1,5 @@
 # Builder image
-FROM golang:1.12-alpine3.9 as builder
+FROM golang:1.13-alpine3.10 as builder
 MAINTAINER Tom Kirkpatrick <tkp@kirkdesigns.co.uk>
 
 # Add build tools.
@@ -8,28 +8,26 @@ RUN apk --no-cache --virtual build-dependencies add \
 	git
 
 # Grab and install the latest version of lnd and all related dependencies.
-WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
+WORKDIR $GOPATH/src/github.com/LN-Zap/lnd
 RUN git config --global user.email "tkp@kirkdesigns.co.uk" \
   && git config --global user.name "Tom Kirkpatrick" \
-	&& git clone https://github.com/lightningnetwork/lnd . \
-  && git reset --hard add905d17f7bbb11d0df2761cdf8accf2fef2b00 \
-	&& git fetch https://github.com/halseth/lnd.git mainnet-neutrino \
-	&& git cherry-pick d1c23009e00298ed50173fb7cd60bdfb2937d50f \
+	&& git clone https://github.com/LN-Zap/lnd . \
+  && git reset --hard edd54b70d4207e3aebf4e5d7a83699ebb83ce990
   && make \
-  && make install tags="experimental monitoring autopilotrpc chainrpc invoicesrpc routerrpc signrpc walletrpc watchtowerrpc" \
+  && make install tags="experimental monitoring autopilotrpc chainrpc invoicesrpc routerrpc signrpc walletrpc watchtowerrpc wtclientrpc" \
   && cp /go/bin/lncli /bin/ \
   && cp /go/bin/lnd /bin/
 
 # Grab and install the latest version of lndconnect.
 WORKDIR $GOPATH/src/github.com/LN-Zap/lndconnect
 RUN git clone https://github.com/LN-Zap/lndconnect . \
-  && git reset --hard b20ee064b02307f74782f9d84169bb4a4a8d3a10 \
+  && git reset --hard 82d7103bb8c8dd3c8ae8de89e3bc061eef82bb8f \
   && make \
   && make install \
   && cp /go/bin/lndconnect /bin/
 
 # Final image
-FROM alpine:3.9 as final
+FROM alpine:3.10 as final
 MAINTAINER Tom Kirkpatrick <tkp@kirkdesigns.co.uk>
 
 # Add utils.
