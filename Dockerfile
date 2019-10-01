@@ -4,15 +4,15 @@ MAINTAINER Tom Kirkpatrick <tkp@kirkdesigns.co.uk>
 
 # Add build tools.
 RUN apk --no-cache --virtual build-dependencies add \
-	build-base \
-	git
+  build-base \
+  git
 
 # Grab and install the latest version of lnd and all related dependencies.
 WORKDIR $GOPATH/src/github.com/LN-Zap/lnd
 RUN git config --global user.email "tkp@kirkdesigns.co.uk" \
   && git config --global user.name "Tom Kirkpatrick" \
-	&& git clone https://github.com/LN-Zap/lnd . \
-  && git reset --hard edd54b70d4207e3aebf4e5d7a83699ebb83ce990
+  && git clone https://github.com/LN-Zap/lnd . \
+  && git reset --hard edd54b70d4207e3aebf4e5d7a83699ebb83ce990 \
   && make \
   && make install tags="experimental monitoring autopilotrpc chainrpc invoicesrpc routerrpc signrpc walletrpc watchtowerrpc wtclientrpc" \
   && cp /go/bin/lncli /bin/ \
@@ -32,12 +32,12 @@ MAINTAINER Tom Kirkpatrick <tkp@kirkdesigns.co.uk>
 
 # Add utils.
 RUN apk --no-cache add \
-	bash \
-	su-exec \
-	dropbear-dbclient \
-	dropbear-scp \
-	ca-certificates \
-	&& update-ca-certificates
+  bash \
+  su-exec \
+  dropbear-dbclient \
+  dropbear-scp \
+  ca-certificates \
+  && update-ca-certificates
 
 ARG USER_ID
 ARG GROUP_ID
