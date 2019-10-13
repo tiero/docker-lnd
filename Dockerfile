@@ -59,6 +59,9 @@ COPY --from=builder /go/bin/lncli /bin/
 COPY --from=builder /go/bin/lnd /bin/
 COPY --from=builder /go/bin/lndconnect /bin/
 
+## Set BUILD_VER build arg to break the cache here.
+ARG BUILD_VER=unknown
+
 ADD ./bin /usr/local/bin
 
 VOLUME ["/lnd"]
