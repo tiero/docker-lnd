@@ -5,6 +5,15 @@ set -ex
 # Generate lnd.conf
 lnd_init
 
-args=("$@")
+PARAMS=""
+if [ ! -z "${RPCUSER}"]; then
+   PARAMS=$(echo --rpcuser=${RPCUSER})
+fi
+if [ ! -z "${RPCPASS}"]; then
+   PARAMS=$(echo --rpcpass=${RPCPASS})
+fi
 
-exec lnd "${args[@]}"
+# Add user parameters to command.
+PARAMS="$PARAMS $@"
+
+exec lnd $PARAMS
