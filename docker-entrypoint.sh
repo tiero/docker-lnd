@@ -9,7 +9,7 @@ fi
 
 # allow the container to be started with `--user`
 if [ "$1" = 'lnd_oneshot' -a "$(id -u)" = '0' ]; then
-	chown -R lnd .
+	chown -R 1000:1000 .
 	exec su-exec lnd "$0" "$@"
 fi
 
