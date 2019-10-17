@@ -14,7 +14,7 @@ RUN git config --global user.email "tkp@kirkdesigns.co.uk" \
   && git clone https://github.com/lightningnetwork/lnd . \
   && git reset --hard v0.8.0-beta \
   && make \
-  && make install tags="experimental monitoring autopilotrpc chainrpc invoicesrpc routerrpc signrpc walletrpc watchtowerrpc" \
+  && make install tags="experimental monitoring autopilotrpc chainrpc invoicesrpc routerrpc signrpc walletrpc watchtowerrpc wtclientrpc" \
   && cp /go/bin/lncli /bin/ \
   && cp /go/bin/lnd /bin/
 
