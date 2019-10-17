@@ -4,14 +4,14 @@ MAINTAINER Tom Kirkpatrick <tkp@kirkdesigns.co.uk>
 
 # Add build tools.
 RUN apk --no-cache --virtual build-dependencies add \
-	build-base \
-	git
+  build-base \
+  git
 
 # Grab and install the latest version of lnd and all related dependencies.
 WORKDIR $GOPATH/src/github.com/lightningnetwork/lnd
 RUN git config --global user.email "tkp@kirkdesigns.co.uk" \
   && git config --global user.name "Tom Kirkpatrick" \
-	&& git clone https://github.com/lightningnetwork/lnd . \
+  && git clone https://github.com/lightningnetwork/lnd . \
   && git reset --hard v0.8.0-beta \
   && make \
   && make install tags="experimental monitoring autopilotrpc chainrpc invoicesrpc routerrpc signrpc walletrpc watchtowerrpc" \
@@ -32,12 +32,12 @@ MAINTAINER Tom Kirkpatrick <tkp@kirkdesigns.co.uk>
 
 # Add utils.
 RUN apk --no-cache add \
-	bash \
-	su-exec \
-	dropbear-dbclient \
-	dropbear-scp \
-	ca-certificates \
-	&& update-ca-certificates
+  bash \
+  su-exec \
+  dropbear-dbclient \
+  dropbear-scp \
+  ca-certificates \
+  && update-ca-certificates
 
 ARG USER_ID
 ARG GROUP_ID
