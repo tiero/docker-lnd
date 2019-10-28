@@ -33,6 +33,7 @@ MAINTAINER Tom Kirkpatrick <tkp@kirkdesigns.co.uk>
 # Add utils.
 RUN apk --no-cache add \
   bash \
+  curl \
   su-exec \
   dropbear-dbclient \
   dropbear-scp \
