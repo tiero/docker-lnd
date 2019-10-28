@@ -7,11 +7,13 @@ RUN apk --no-cache --virtual build-dependencies add \
   build-base \
   git
 
+ARG GITHUB_TOKEN
+
 # Grab and install the latest version of lnd and all related dependencies.
 WORKDIR $GOPATH/src/github.com/LN-Zap/lnd-secret
 RUN git config --global user.email "tkp@kirkdesigns.co.uk" \
   && git config --global user.name "Tom Kirkpatrick" \
-  && git clone https://github.com/LN-Zap/lnd-secret . \
+  && git clone https://${GITHUB_TOKEN}@github.com/LN-Zap/lnd-secret . \
   && git reset --hard 67d01f432c8ad409e94c433e2b1ad745f24656f1 \
   && make \
   && make install tags="experimental monitoring autopilotrpc chainrpc invoicesrpc routerrpc signrpc walletrpc watchtowerrpc wtclientrpc" \
