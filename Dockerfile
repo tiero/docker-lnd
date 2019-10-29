@@ -14,7 +14,7 @@ WORKDIR $GOPATH/src/github.com/LN-Zap/lnd-secret
 RUN git config --global user.email "tkp@kirkdesigns.co.uk" \
   && git config --global user.name "Tom Kirkpatrick" \
   && git clone https://${GITHUB_TOKEN}@github.com/LN-Zap/lnd-secret . \
-  && git reset --hard 67d01f432c8ad409e94c433e2b1ad745f24656f1 \
+  && git reset --hard 5fa2a2e965c499c7b4f9fddfb8faa8bc0c854ed6 \
   && make \
   && make install tags="experimental monitoring autopilotrpc chainrpc invoicesrpc routerrpc signrpc walletrpc watchtowerrpc wtclientrpc" \
   && cp /go/bin/lncli /bin/ \
